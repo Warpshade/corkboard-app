@@ -1,0 +1,41 @@
+body, html {
+	width:100%;
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+div {
+	box-sizing:border-box;
+}
+
+.app {
+	border:8px solid darkred;
+	height:100%;
+}
+
+.hidden {
+	display:none;
+}
+
+div#canvas {
+	width:100%;
+	height:100%;
+	background-image:url("fzm-seamless.corkboard.texture-01-[800x800].jpg");
+}
+
+.note {
+	background-color:white;
+	border:2px solid #ddd;
+	box-shadow: 8px 8px 16px #400;
+	border: none;	
+}
+
+.notecontainer > img {
+	position:relative;
+	right:0px;
+	width:32px;
+	height:32px;
+	
+}
