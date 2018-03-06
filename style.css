@@ -13,6 +13,7 @@ div {
 .app {
 	border:8px solid darkred;
 	height:100%;
+   position:relative;
 }
 
 .hidden {
@@ -23,19 +24,47 @@ div#canvas {
 	width:100%;
 	height:100%;
 	background-image:url("fzm-seamless.corkboard.texture-01-[800x800].jpg");
+   position:relative;
+   overflow:scroll;
+   background-attachment: local;/*Check browser support for this*/
 }
 
-.note {
-	background-color:white;
+.note-body {
+   min-height:32px;
+   min-width:128px;
+   width:100%;
+   height:100%;
+   padding: 00px 20px;
+  	background-color:#ffa;
+   margin-bottom: -4px;
+   border:0;
+   outline: none;
+}
+
+.note-container {
+   min-height:32px;
+   min-width:128px;
 	border:2px solid #ddd;
 	box-shadow: 8px 8px 16px #400;
 	border: none;	
+   /*background-image:url("bgtime.png");*/
+   background-color:#eaeaa0;
+   padding-top:24px;
+   cursor:pointer;
 }
 
-.notecontainer > img {
-	position:relative;
-	right:0px;
+.note-container > img.control-pin {
+	position:absolute;
+   top:-16px;
+	left:-16px;
 	width:32px;
-	height:32px;
-	
+	height:32px;	
+}
+
+.note-container > img.lock-pin-gone, .note-container > img.lock-pin {
+	position:absolute;
+   top:-16px;
+	right:-16px;
+	width:32px;
+	height:32px;	
 }
