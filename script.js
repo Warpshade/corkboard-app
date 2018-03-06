@@ -1,16 +1,10 @@
 $(function() {
-	/*
-	var c=document.getElementById("canvas");
-	var ctx=c.getContext("2d");
-	ctx.canvas.width  = window.innerWidth-16;
-	ctx.canvas.height = window.innerHeight-16;
-
-	var bgImg=document.getElementById("corkboard");
-	var bgPat=ctx.createPattern(bgImg,"repeat");
-	ctx.rect(0,0,window.innerWidth-16,window.innerHeight-16);
-	ctx.fillStyle=bgPat;
-	ctx.fill();
-	*/
+	
+	//TODO: Mouseup while resizing element doesn't save resize if mouse no longer
+	// on the note. Might be best to rethink current structure to remove this as
+	// an issue.
+	
+	//TODO: Needs import/export control
 	
 	var borderThick = 8;
 	
