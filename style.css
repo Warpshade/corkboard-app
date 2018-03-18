@@ -61,10 +61,35 @@ div#canvas {
 	height:32px;	
 }
 
-.note-container > img.lock-pin-gone, .note-container > img.lock-pin {
+.note-container > img.lock-pin {
 	position:absolute;
    top:-16px;
 	right:-16px;
 	width:32px;
 	height:32px;	
+}
+
+.note-container > img.lock-pin-gone {
+   position:absolute;
+   top:0px;
+	right:0px;
+	width:32px;
+	height:32px;	
+}
+
+#controls {
+   display:inline-block;
+   background-image:url("bgtime.png");
+   margin:8px;
+   padding:20px 0px 4px 0px;
+   
+   box-shadow: 8px 8px 16px #111;
+}
+
+#controls .control {   
+   font-family:sans-serif;      
+   border-bottom:1px solid grey;
+   padding:0px 3px;
+   margin-left:20px;
+   margin-bottom:6px;
 }

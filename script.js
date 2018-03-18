@@ -52,6 +52,10 @@ $(function() {
 		this.pinned = pinned;
 	}
 	
+	var ImportData = function(notesJSON) {
+		
+	}
+	
 	var SaveData = function() {
 		localStorage.setItem("notes",JSON.stringify(notes));
 	}
@@ -90,13 +94,76 @@ $(function() {
 		event.stopImmediatePropagation();
 	});
 	
+	$("div#canvas").on("click","#controls",function(event) {
+		//console.log("Controls triggered")
+		event.stopImmediatePropagation();
+	});
+	
+	$("div#canvas").on("click","#export",function(event) {
+		prompt("Copy this somewhere safe - This is your current corkboard!", JSON.stringify(notes));
+		event.stopImmediatePropagation();
+	});
+	
+	$("div#canvas").on("click","#import",function(event) {
+		console.log("Import triggered")
+		var importText = prompt("Copy your export string here!");
+		
+		try {
+			var tmpNotes = JSON.parse(importText);
+			if(tmpNotes!=null) {
+				notes = tmpNotes;
+				console.log(notes);
+				$("div#canvas .note-container").remove();
+				notes.forEach(function(currNote, ind,arr) {		
+					if(currNote.id > lastId) {
+						lastId = currNote.id;
+					}
+					if(currNote.z > lastHeight)
+						lastHeight = currNote.z;
+					noteHtml = $("<div class = 'note-container' data-id = "+currNote.id+" style = 'position:absolute; top:"+currNote.y+"px;left:"+currNote.x+"px;z-index:"+currNote.z+"' ><textarea class='note-body' style='width:"+currNote.width+"px;height:"+currNote.height+"px;'>"+currNote.content+"</textarea></div>");
+					$(noteHtml).append("<img src = 'pin.png' data-id = "+currNote.id+"  class = \"control-pin\"/>");
+					if(currNote.pinned) {
+						$(noteHtml).append("<img src = 'pin-right.png' data-id = "+currNote.id+"  class = \"lock-pin\"/>");
+					}
+					else {
+						$(noteHtml).append("<img src = 'pin-right-hole.png' data-id = "+currNote.id+"  class = \"lock-pin-gone\"/>");
+					}
+					
+					console.log(currNote.content);
+					$("div#canvas").append(noteHtml);
+				});
+			}
+			
+		} catch(e) {
+		
+		}
+		
+		
+		event.stopImmediatePropagation();
+	});
+	
+	$("div#canvas").on("mousedown","#controls",function(event) {
+		console.log("Controls triggered")
+		event.stopImmediatePropagation();
+	});
+	
 	$("div#canvas").on("mousedown",".control-pin",function(event) {
 		
 		event.stopImmediatePropagation();
 	});
 	
+	$("div#canvas").on("mousedown","img.lock-pin",function(event) {
+		
+		event.stopImmediatePropagation();
+	});
+	
+	$("div#canvas").on("mousedown","img.lock-pin-gone",function(event) {
+		
+		event.stopImmediatePropagation();
+	});
 	
 	$("div#canvas").on("click","img.lock-pin-gone",function(event) {
+		console.log("Lock-Pin Gone Clicked")
 		$(this).removeClass("lock-pin-gone").addClass("lock-pin");
 		$(this).attr("src","pin-right.png");
 		var tId = $(this).attr("data-id");
@@ -223,6 +290,12 @@ $(function() {
 		
 		noteHtml = $("<div data-id = "+newNote.id+" class = 'note-container' style = 'position:absolute; top:"+newNote.y+"px;left:"+newNote.x+"px;z-index="+newNote.z+"'><textarea class='note-body' style='width:"+newNote.width+"px;height:"+newNote.height+"px;'></textarea></div>");
 		$(noteHtml).append("<img src = 'pin.png' data-id = "+newNote.id+"  class = \"control-pin\"/>");
+		if(newNote.pinned) {
+			$(noteHtml).append("<img src = 'pin-right.png' data-id = "+newNote.id+"  class = \"lock-pin\"/>");
+		}
+		else {
+			$(noteHtml).append("<img src = 'pin-right-hole.png' data-id = "+newNote.id+"  class = \"lock-pin-gone\"/>");
+		}
 		notes.push(newNote);
 		localStorage.setItem("notes",JSON.stringify(notes));
 		$("div#canvas").append(noteHtml);
