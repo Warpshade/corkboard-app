@@ -52,6 +52,14 @@ $(function() {
 		this.pinned = pinned;
 	}
 	
+	var EventHalt = function(e) {
+		if(e.stopPropagation) e.stopPropagation();
+		if(e.preventDefault) e.preventDefault();
+		e.cancelBubble=true;
+		e.returnValue=false;
+		return false;
+	}
+	
 	var ImportData = function(notesJSON) {
 		
 	}
@@ -73,8 +81,6 @@ $(function() {
 			$(target).remove();	
 		}
 		
-		
-		
 		SaveData();
 	}
 	$("div#canvas").on("mouseover",function(event) {
@@ -91,17 +97,17 @@ $(function() {
 	});
 	$("div#canvas").on("click",".control-pin",function(event) {
 		DeleteItem($(this).attr("data-id"));
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("click","#controls",function(event) {
 		//console.log("Controls triggered")
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("click","#export",function(event) {
 		prompt("Copy this somewhere safe - This is your current corkboard!", JSON.stringify(notes));
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("click","#import",function(event) {
@@ -139,27 +145,27 @@ $(function() {
 		}
 		
 		
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("mousedown","#controls",function(event) {
 		console.log("Controls triggered")
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("mousedown",".control-pin",function(event) {
 		
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("mousedown","img.lock-pin",function(event) {
 		
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("mousedown","img.lock-pin-gone",function(event) {
 		
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("click","img.lock-pin-gone",function(event) {
@@ -172,7 +178,7 @@ $(function() {
 		});
 		notes[targNote].pinned = true;
 		SaveData();
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("click","img.lock-pin",function(event) {
@@ -184,23 +190,23 @@ $(function() {
 		});
 		notes[targNote].pinned = false;
 		SaveData();
-		event.stopImmediatePropagation();
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("click",".note-container", function(event) {
 		//console.log("?");
 		console.log("click-note-container");
-		event.stopImmediatePropagation();		
+		EventHalt(event);
 	});
 	
 	$("div#canvas").on("mousedown",".note-body", function(event) {
 		console.log("mousedown-note-body");
-		event.stopImmediatePropagation();		
+		//EventHalt(event);		//DEBUG for resize event.
 	});
 	
 	$("div#canvas").on("mouseup",".note-body", function(event) {
 		console.log("MouseUp, note-body");
-		//event.stopImmediatePropagation();		
+		//EventHalt(event);		
 	});
 	
 	$("div#canvas").on("mousedown",".note-container", function(event) {
@@ -218,7 +224,7 @@ $(function() {
 			dragTarget = this;
 		}
 		
-		event.stopImmediatePropagation();		
+		//EventHalt(event);		//DEBUG for resize event.
 	});
 	$("div#canvas").on("mousemove", function(event) {
 		//console.log("?");
@@ -249,7 +255,7 @@ $(function() {
 			notes[targNote].y = y;		
 			localStorage.setItem("notes",JSON.stringify(notes));			
 		}
-		event.stopImmediatePropagation();		
+		EventHalt(event);		
 	});
 	$("div#canvas").on("mouseup",".note-container", function(event) {
 		console.log("Mouse-up, note container?");
@@ -267,7 +273,7 @@ $(function() {
 		localStorage.setItem("notes",JSON.stringify(notes));
 		
 		
-		event.stopImmediatePropagation();		
+		EventHalt(event);		
 	});
 	$("div#canvas").on('change keyup paste',".note-container", function(event) {
 		//console.log("!!!")
